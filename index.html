@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Балаларға арналған қазақша логопедиялық оқу платформасы." />
+  <title>Сөйле Kids — Логопедиялық бағдарлама</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav-wrap">
+      <a class="brand" href="#home" aria-label="Сөйле Kids басты беті">
+        <span class="brand-mark">С</span>
+        <span>Сөйле <b>Kids</b></span>
+      </a>
+
+      <button class="menu-btn" id="menuBtn" aria-label="Мәзірді ашу" aria-expanded="false">☰</button>
+
+      <nav class="nav" id="nav">
+        <a href="#home">Басты бет</a>
+        <a href="#lessons">Сабақтар</a>
+        <a href="#games">Ойындар</a>
+        <a href="#progress">Жетістіктер</a>
+        <a href="#parents">Ата-аналарға</a>
+      </nav>
+
+      <button class="ghost-btn desktop-only" data-scroll="#diagnostic">Деңгейді анықтау</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Қазақша логопедиялық платформа</div>
+          <h1>Дұрыс сөйлейміз.<br><span>Ойнап үйренеміз.</span></h1>
+          <p>
+            Балаларға дыбыстарды анық айтуға, сөздік қорын дамытуға және
+            сөйлеуге сенімді болуға көмектесетін қызықты сабақтар мен ойындар.
+          </p>
+          <div class="hero-actions">
+            <button class="primary-btn" data-scroll="#lessons">Сабақты бастау</button>
+            <button class="secondary-btn" data-scroll="#diagnostic">Тегін диагностика</button>
+          </div>
+
+          <div class="hero-stats">
+            <div><strong>8+</strong><span>дыбыс</span></div>
+            <div><strong>20+</strong><span>жаттығу</span></div>
+            <div><strong>5</strong><span>ойын түрі</span></div>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="mascot" aria-hidden="true">🦊</div>
+          <div class="speech">Сәлем! Бүгін бірге <b>«Р»</b> дыбысын үйренеміз!</div>
+          <div class="sound-card">
+            <div class="sound-letter">Р</div>
+            <div>
+              <small>Бүгінгі дыбыс</small>
+              <h3>Р-р-р-р!</h3>
+              <button class="mini-btn" id="playSoundBtn">▶ Тыңдау</button>
+            </div>
+          </div>
+          <div class="streak">🔥 4 күн қатарынан сабақ</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="diagnostic">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="kicker">01</span>
+            <h2>Бастапқы диагностика</h2>
+          </div>
+          <p>3 қысқа сұраққа жауап беріңіз. Жүйе балаға бастапқы бағыт ұсынады.</p>
+        </div>
+
+        <div class="diagnostic-card">
+          <div class="steps"><span class="active">1</span><span>2</span><span>3</span></div>
+
+          <div class="diag-question" data-step="1">
+            <h3>Баланың жасы нешеде?</h3>
+            <div class="choice-grid">
+              <button class="choice" data-value="3–4 жас">3–4 жас</button>
+              <button class="choice" data-value="5–6 жас">5–6 жас</button>
+              <button class="choice" data-value="7–8 жас">7–8 жас</button>
+              <button class="choice" data-value="9+ жас">9+ жас</button>
+            </div>
+          </div>
+
+          <div class="diag-question hidden" data-step="2">
+            <h3>Қай дыбыстар қиын?</h3>
+            <div class="choice-grid letters">
+              <button class="choice" data-value="Р">Р</button>
+              <button class="choice" data-value="Л">Л</button>
+              <button class="choice" data-value="С/З">С / З</button>
+              <button class="choice" data-value="Ш/Ж">Ш / Ж</button>
+            </div>
+          </div>
+
+          <div class="diag-question hidden" data-step="3">
+            <h3>Бала сөздерді анық айта ма?</h3>
+            <div class="choice-grid">
+              <button class="choice" data-value="Иә">Иә</button>
+              <button class="choice" data-value="Кейде">Кейде</button>
+              <button class="choice" data-value="Қиналады">Қиналады</button>
+            </div>
+          </div>
+
+          <div class="diag-result hidden" id="diagResult">
+            <div class="result-icon">✨</div>
+            <h3>Бастапқы бағыт дайын!</h3>
+            <p id="diagText"></p>
+            <button class="primary-btn" data-scroll="#lessons">Ұсынылған сабаққа өту</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section soft" id="lessons">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="kicker">02</span>
+            <h2>Дыбыстар әлемі</h2>
+          </div>
+          <p>Әр дыбысқа жеке шағын маршрут: тыңдау → қайталау → сөз → сөйлем → ойын.</p>
+        </div>
+
+        <div class="sound-grid">
+          <article class="lesson-card">
+            <div class="lesson-icon coral">Р</div>
+            <div>
+              <span class="badge">Бастау</span>
+              <h3>Р дыбысы</h3>
+              <p>Тіл ұшын дұрыс қою және «Р» дыбысын сөзде айту.</p>
+              <div class="progress-line"><span style="width: 68%"></span></div>
+              <small>68% аяқталды</small>
+            </div>
+            <button class="round-btn lesson-open" data-letter="Р">→</button>
+          </article>
+
+          <article class="lesson-card">
+            <div class="lesson-icon blue">Л</div>
+            <div>
+              <span class="badge">Жаңа</span>
+              <h3>Л дыбысы</h3>
+              <p>Дыбысты буында, сөзде және қысқа сөйлемде бекіту.</p>
+              <div class="progress-line"><span style="width: 35%"></span></div>
+              <small>35% аяқталды</small>
+            </div>
+            <button class="round-btn lesson-open" data-letter="Л">→</button>
+          </article>
+
+          <article class="lesson-card">
+            <div class="lesson-icon yellow">Ш</div>
+            <div>
+              <span class="badge">Құлыпта</span>
+              <h3>Ш дыбысы</h3>
+              <p>Ш дыбысын есту, ажырату және дұрыс қайталау.</p>
+              <div class="progress-line"><span style="width: 10%"></span></div>
+              <small>10% аяқталды</small>
+            </div>
+            <button class="round-btn lesson-open" data-letter="Ш">→</button>
+          </article>
+        </div>
+
+        <div class="path-card">
+          <div class="path-copy">
+            <span class="badge light">Оқу картасы</span>
+            <h3>Бір дыбыстан — еркін сөйлеуге дейін</h3>
+            <p>Баланың әр сабағы шағын деңгей ретінде ашылады.</p>
+          </div>
+          <div class="path">
+            <div class="node done">1<span>Тыңда</span></div>
+            <div class="line done"></div>
+            <div class="node current">2<span>Қайтала</span></div>
+            <div class="line"></div>
+            <div class="node">3<span>Сөз айт</span></div>
+            <div class="line"></div>
+            <div class="node">4<span>Ойын</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="articulation">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="kicker">03</span>
+            <h2>Артикуляциялық жаттығулар</h2>
+          </div>
+          <p>Тіл мен ерінге арналған қысқа жаттығулар. Бір жаттығу — 30–60 секунд.</p>
+        </div>
+
+        <div class="exercise-grid">
+          <button class="exercise-card" data-exercise="Ат">
+            <span>🐴</span><b>Ат</b><small>Тілді таңдайға тақылдату</small>
+          </button>
+          <button class="exercise-card" data-exercise="Күлімдеу">
+            <span>😁</span><b>Күлімдеу</b><small>Ерінді созып ұстау</small>
+          </button>
+          <button class="exercise-card" data-exercise="Түтікше">
+            <span>😗</span><b>Түтікше</b><small>Ерінді алға созу</small>
+          </button>
+          <button class="exercise-card" data-exercise="Кесе">
+            <span>🥣</span><b>Кесе</b><small>Тілді кесе пішініне келтіру</small>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section games-section" id="games">
+      <div class="container">
+        <div class="section-head inverted">
+          <div>
+            <span class="kicker">04</span>
+            <h2>Ойнап үйренеміз</h2>
+          </div>
+          <p>Қысқа ойындар арқылы дыбысты есту, тану және дұрыс айту дағдысы бекітіледі.</p>
+        </div>
+
+        <div class="games-grid">
+          <article class="game-card">
+            <div class="game-art">🖼️</div>
+            <span class="game-tag">1–2 минут</span>
+            <h3>Дұрыс суретті тап</h3>
+            <p>Берілген дыбыс бар суретті таңда.</p>
+            <button class="game-btn" data-game="picture">Ойнау</button>
+          </article>
+
+          <article class="game-card">
+            <div class="game-art">👂</div>
+            <span class="game-tag">тыңдау</span>
+            <h3>Қай дыбысты естідің?</h3>
+            <p>Дыбысты тыңдап, дұрыс әріпті бас.</p>
+            <button class="game-btn" data-game="sound">Ойнау</button>
+          </article>
+
+          <article class="game-card">
+            <div class="game-art">🧩</div>
+            <span class="game-tag">логика</span>
+            <h3>Сөз құрастыр</h3>
+            <p>Әріптерден қарапайым сөз жина.</p>
+            <button class="game-btn" data-game="word">Ойнау</button>
+          </article>
+        </div>
+
+        <div class="game-demo" id="gameDemo">
+          <div>
+            <span class="badge light">Мини-ойын</span>
+            <h3>«Р» дыбысы бар сөзді тап</h3>
+            <p id="gameMessage">Дұрыс жауапты таңдаңыз.</p>
+          </div>
+          <div class="answer-row">
+            <button class="answer" data-correct="false">Алма 🍎</button>
+            <button class="answer" data-correct="true">Ракета 🚀</button>
+            <button class="answer" data-correct="false">Доп ⚽</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section soft" id="progress">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="kicker">05</span>
+            <h2>Менің жетістіктерім</h2>
+          </div>
+          <p>Оқу нәтижесін балаға түсінікті, мотивациялық форматта көрсетеміз.</p>
+        </div>
+
+        <div class="dashboard">
+          <div class="profile-card">
+            <div class="avatar">👧🏻</div>
+            <div>
+              <small>Оқушы</small>
+              <h3>Айару</h3>
+              <p>3-деңгей · Дыбыс зерттеушісі</p>
+            </div>
+            <div class="level-ring"><b>68%</b><span>деңгей</span></div>
+          </div>
+
+          <div class="metric-card">
+            <span>⭐</span><b id="starsCount">120</b><small>жұлдызша</small>
+          </div>
+          <div class="metric-card">
+            <span>🔥</span><b>4</b><small>күн серия</small>
+          </div>
+          <div class="metric-card">
+            <span>🏆</span><b>3</b><small>медаль</small>
+          </div>
+        </div>
+
+        <div class="achievement-row">
+          <div class="achievement unlocked">🏆<b>Р шебері</b><small>Ашылды</small></div>
+          <div class="achievement unlocked">🌟<b>50 жұлдыз</b><small>Ашылды</small></div>
+          <div class="achievement">🎯<b>7 күн қатарынан</b><small>3 күн қалды</small></div>
+          <div class="achievement">🦁<b>Батыл сөйлеуші</b><small>Құлыпта</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="parents">
+      <div class="container parent-grid">
+        <div>
+          <span class="kicker">06</span>
+          <h2>Ата-аналарға арналған бақылау</h2>
+          <p class="lead">
+            Баланың қай дыбысты үйреніп жатқанын, қанша сабақ орындағанын және
+            қай тапсырмаларда қиналғанын бір жерден көруге болады.
+          </p>
+
+          <div class="parent-list">
+            <div><span>✓</span><p><b>Апталық прогресс</b><small>Сабақ саны және аяқталу пайызы</small></p></div>
+            <div><span>✓</span><p><b>Қиын дыбыстар</b><small>Қай тақырыпты қайталау керегін көру</small></p></div>
+            <div><span>✓</span><p><b>Ұсыныстар</b><small>Үйде орындауға болатын қысқа жаттығулар</small></p></div>
+          </div>
+        </div>
+
+        <div class="parent-panel">
+          <div class="panel-head">
+            <div>
+              <small>Осы апта</small>
+              <h3>Айарудың прогресі</h3>
+            </div>
+            <span class="status-dot">Белсенді</span>
+          </div>
+
+          <div class="week-row">
+            <div class="day done">Дс<span>✓</span></div>
+            <div class="day done">Сс<span>✓</span></div>
+            <div class="day done">Ср<span>✓</span></div>
+            <div class="day active">Бс<span>4</span></div>
+            <div class="day">Жм<span>5</span></div>
+            <div class="day">Сб<span>6</span></div>
+            <div class="day">Жс<span>7</span></div>
+          </div>
+
+          <div class="report-card">
+            <div><span>Р дыбысы</span><b>68%</b></div>
+            <div class="progress-line"><span style="width:68%"></span></div>
+            <small>Ұсыныс: «Р» дыбысын сөз ортасында қайталау.</small>
+          </div>
+
+          <div class="report-card">
+            <div><span>Л дыбысы</span><b>35%</b></div>
+            <div class="progress-line"><span style="width:35%"></span></div>
+            <small>Келесі сабақ: «Ла–ло–лу» буындары.</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container cta-inner">
+        <div>
+          <span>Сөйлеуді бүгіннен бастайық</span>
+          <h2>Кішкентай қадам — үлкен нәтиже.</h2>
+        </div>
+        <button class="primary-btn light-btn" data-scroll="#diagnostic">Диагностиканы бастау</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <a class="brand footer-brand" href="#home"><span class="brand-mark">С</span><span>Сөйле <b>Kids</b></span></a>
+        <p>Балаларға арналған қазақша логопедиялық оқу платформасының демо-нұсқасы.</p>
+      </div>
+      <div>
+        <b>Бөлімдер</b>
+        <a href="#lessons">Сабақтар</a>
+        <a href="#games">Ойындар</a>
+        <a href="#progress">Жетістіктер</a>
+      </div>
+      <div>
+        <b>Ақпарат</b>
+        <a href="#parents">Ата-аналарға</a>
+        <a href="#diagnostic">Диагностика</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">© 2026 Сөйле Kids. Прототип.</div>
+  </footer>
+
+  <div class="modal hidden" id="lessonModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <button class="modal-close" id="modalClose" aria-label="Жабу">×</button>
+      <span class="badge">Демо сабақ</span>
+      <h3 id="modalTitle">Р дыбысы</h3>
+      <p id="modalDesc">Дыбысты бірге қайталайық.</p>
+      <div class="repeat-box">
+        <span id="modalLetter">Р</span>
+        <button class="primary-btn" id="repeatBtn">Дыбысты қайталау</button>
+      </div>
+      <small>Бұл прототип. Кейін мұнда аудио, видео және дауыс талдауды қосуға болады.</small>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

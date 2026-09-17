@@ -1,0 +1,133 @@
+const $ = (selector, root = document) => root.querySelector(selector);
+const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+
+const toast = $("#toast");
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(showToast.timer);
+  showToast.timer = setTimeout(() => toast.classList.remove("show"), 2200);
+}
+
+// Smooth scroll
+$$("[data-scroll]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const target = $(btn.dataset.scroll);
+    if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+});
+
+// Mobile menu
+const menuBtn = $("#menuBtn");
+const nav = $("#nav");
+menuBtn.addEventListener("click", () => {
+  const open = nav.classList.toggle("open");
+  menuBtn.setAttribute("aria-expanded", String(open));
+});
+$$(".nav a").forEach(a => a.addEventListener("click", () => nav.classList.remove("open")));
+
+// Demo pronunciation
+$("#playSoundBtn").addEventListener("click", () => {
+  if ("speechSynthesis" in window) {
+    const utter = new SpeechSynthesisUtterance("Р-р-р-р");
+    utter.lang = "kk-KZ";
+    utter.rate = 0.75;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(utter);
+  } else {
+    showToast("Бұл браузер дыбыстық синтезді қолдамайды.");
+  }
+});
+
+// Diagnostic
+let diagStep = 1;
+const diagAnswers = [];
+
+function updateSteps() {
+  $$(".steps span").forEach((el, i) => el.classList.toggle("active", i < diagStep));
+}
+
+$$(".diag-question .choice").forEach(choice => {
+  choice.addEventListener("click", () => {
+    diagAnswers[diagStep - 1] = choice.dataset.value;
+    $(`.diag-question[data-step="${diagStep}"]`).classList.add("hidden");
+
+    if (diagStep < 3) {
+      diagStep++;
+      $(`.diag-question[data-step="${diagStep}"]`).classList.remove("hidden");
+      updateSteps();
+    } else {
+      $("#diagResult").classList.remove("hidden");
+      $(".steps").classList.add("hidden");
+      const [age, sound, clarity] = diagAnswers;
+      $("#diagText").textContent =
+        `${age} деңгейі үшін ${sound} дыбысына арналған бастапқы жаттығулар ұсынылады. ` +
+        `Сөйлеу анықтығы: ${clarity.toLowerCase()}. Алдымен тыңдау және қайталау сабағынан бастауға болады.`;
+    }
+  });
+});
+
+// Lesson modal
+const modal = $("#lessonModal");
+const modalLetter = $("#modalLetter");
+const modalTitle = $("#modalTitle");
+const modalDesc = $("#modalDesc");
+
+$$(".lesson-open").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const letter = btn.dataset.letter;
+    modalLetter.textContent = letter;
+    modalTitle.textContent = `${letter} дыбысы`;
+    modalDesc.textContent = `«${letter}» дыбысын тыңдап, буыннан бастап сөзге дейін қайталаймыз.`;
+    modal.classList.remove("hidden");
+  });
+});
+
+$("#modalClose").addEventListener("click", () => modal.classList.add("hidden"));
+modal.addEventListener("click", e => {
+  if (e.target === modal) modal.classList.add("hidden");
+});
+
+$("#repeatBtn").addEventListener("click", () => {
+  const letter = modalLetter.textContent;
+  if ("speechSynthesis" in window) {
+    const utter = new SpeechSynthesisUtterance(`${letter}-${letter}-${letter}`);
+    utter.lang = "kk-KZ";
+    utter.rate = 0.7;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(utter);
+  }
+  showToast("Жарайсың! Енді өзің қайталап көр.");
+});
+
+// Exercise buttons
+$$(".exercise-card").forEach(btn => {
+  btn.addEventListener("click", () => {
+    showToast(`${btn.dataset.exercise}: жаттығуды 30 секунд орындап көр.`);
+  });
+});
+
+// Game buttons
+$$(".game-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    $("#gameDemo").scrollIntoView({ behavior: "smooth", block: "center" });
+    showToast("Мини-ойын ашылды!");
+  });
+});
+
+// Mini game
+$$(".answer").forEach(btn => {
+  btn.addEventListener("click", () => {
+    $$(".answer").forEach(b => b.classList.remove("correct", "wrong"));
+
+    if (btn.dataset.correct === "true") {
+      btn.classList.add("correct");
+      $("#gameMessage").textContent = "Дұрыс! «Ракета» сөзінде «Р» дыбысы бар. +5 ⭐";
+      const stars = $("#starsCount");
+      stars.textContent = Number(stars.textContent) + 5;
+    } else {
+      btn.classList.add("wrong");
+      $("#gameMessage").textContent = "Тағы бір рет байқап көр. «Р» дыбысын тыңда.";
+    }
+  });
+});
